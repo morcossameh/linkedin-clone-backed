@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME || "postgres",
   password: process.env.DB_PASSWORD !== undefined ? process.env.DB_PASSWORD : "",
   database: process.env.DB_NAME || "linkedin_db",
-  synchronize: process.env.NODE_ENV !== "production",
+  synchronize: true, // TODO: Use migrations for production
   logging: process.env.NODE_ENV === "development",
   entities: [User, Post],
   migrations: ["src/migrations/**/*.ts"],
