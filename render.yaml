@@ -2,11 +2,9 @@ services:
   # PostgreSQL Database
   - type: pserv
     name: linkedin-db
-    env: docker
+    databaseName: linkedin_db
+    user: linkedin_user
     plan: free
-    databases:
-      - name: linkedin_db
-        user: linkedin_user
 
   # Node.js Backend API
   - type: web
@@ -44,4 +42,4 @@ services:
         generateValue: true
       - key: JWT_REFRESH_SECRET
         generateValue: true
-    healthCheckPath: /
+    healthCheckPath: /health
