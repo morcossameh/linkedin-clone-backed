@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { AuthController } from "../controllers/authController";
 import { authenticateToken } from "../middleware/auth";
 
@@ -33,7 +33,7 @@ const authController = new AuthController();
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post("/register", (req, res) => authController.register(req, res));
+router.post("/register", (req: Request, res: Response) => authController.register(req, res));
 
 /**
  * @swagger
@@ -63,7 +63,7 @@ router.post("/register", (req, res) => authController.register(req, res));
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post("/login", (req, res) => authController.login(req, res));
+router.post("/login", (req: Request, res: Response) => authController.login(req, res));
 
 /**
  * @swagger
@@ -93,7 +93,7 @@ router.post("/login", (req, res) => authController.login(req, res));
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post("/refresh-token", (req, res) => authController.refreshToken(req, res));
+router.post("/refresh-token", (req: Request, res: Response) => authController.refreshToken(req, res));
 
 /**
  * @swagger
@@ -125,6 +125,6 @@ router.post("/refresh-token", (req, res) => authController.refreshToken(req, res
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get("/me", authenticateToken, (req, res) => authController.getMe(req, res));
+router.get("/me", authenticateToken, (req: Request, res: Response) => authController.getMe(req, res));
 
 export default router;
