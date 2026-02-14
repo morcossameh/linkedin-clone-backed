@@ -1,10 +1,9 @@
-services:
-  # PostgreSQL Database
-  - type: pserv
-    name: linkedin-db
+databases:
+  - name: linkedin-db
+    databaseName: linkedin_db
     plan: free
 
-  # Node.js Backend API
+services:
   - type: web
     name: linkedin-backend
     runtime: node
