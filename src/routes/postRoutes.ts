@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { PostController } from "../controllers/postController";
 import { authenticateToken } from "../middleware/auth";
 
@@ -58,7 +58,7 @@ const postController = new PostController();
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get("/", authenticateToken, (req, res) => postController.getAllPosts(req, res));
+router.get("/", authenticateToken, (req: Request, res: Response) => postController.getAllPosts(req, res));
 
 /**
  * @swagger
@@ -98,7 +98,7 @@ router.get("/", authenticateToken, (req, res) => postController.getAllPosts(req,
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get("/:id", authenticateToken, (req, res) => postController.getPostById(req, res));
+router.get("/:id", authenticateToken, (req: Request, res: Response) => postController.getPostById(req, res));
 
 /**
  * @swagger
@@ -153,7 +153,7 @@ router.get("/:id", authenticateToken, (req, res) => postController.getPostById(r
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get("/my/posts", authenticateToken, (req, res) => postController.getMyPosts(req, res));
+router.get("/my/posts", authenticateToken, (req: Request, res: Response) => postController.getMyPosts(req, res));
 
 /**
  * @swagger
@@ -191,7 +191,7 @@ router.get("/my/posts", authenticateToken, (req, res) => postController.getMyPos
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post("/", authenticateToken, (req, res) => postController.createPost(req, res));
+router.post("/", authenticateToken, (req: Request, res: Response) => postController.createPost(req, res));
 
 /**
  * @swagger
@@ -249,7 +249,7 @@ router.post("/", authenticateToken, (req, res) => postController.createPost(req,
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.put("/:id", authenticateToken, (req, res) => postController.updatePost(req, res));
+router.put("/:id", authenticateToken, (req: Request, res: Response) => postController.updatePost(req, res));
 
 /**
  * @swagger
@@ -291,6 +291,6 @@ router.put("/:id", authenticateToken, (req, res) => postController.updatePost(re
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.delete("/:id", authenticateToken, (req, res) => postController.deletePost(req, res));
+router.delete("/:id", authenticateToken, (req: Request, res: Response) => postController.deletePost(req, res));
 
 export default router;
