@@ -1,0 +1,47 @@
+services:
+  # PostgreSQL Database
+  - type: pserv
+    name: linkedin-db
+    env: docker
+    plan: free
+    databases:
+      - name: linkedin_db
+        user: linkedin_user
+
+  # Node.js Backend API
+  - type: web
+    name: linkedin-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DB_HOST
+        fromDatabase:
+          name: linkedin-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: linkedin-db
+          property: port
+      - key: DB_USERNAME
+        fromDatabase:
+          name: linkedin-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: linkedin-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: linkedin-db
+          property: database
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+    healthCheckPath: /

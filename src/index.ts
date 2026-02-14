@@ -14,7 +14,14 @@ import { swaggerSpec } from "./config/swagger";
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+// CORS configuration
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || "*",
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -25,9 +32,26 @@ app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 
 app.get("/", (req, res) => {
+  const host = req.get('host');
+  const protocol = req.protocol;
   res.json({
     message: "LinkedIn Backend API",
-    documentation: `http://localhost:${PORT}/api-docs`
+    version: "1.0.0",
+    status: "running",
+    documentation: `${protocol}://${host}/api-docs`,
+    endpoints: {
+      auth: `${protocol}://${host}/api/auth`,
+      posts: `${protocol}://${host}/api/posts`
+    }
+  });
+});
+
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "healthy",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
   });
 });
 
